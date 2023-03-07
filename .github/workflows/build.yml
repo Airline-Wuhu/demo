@@ -7,18 +7,18 @@ on:
   workflow_dispatch:
 
 env:
-  POSTGRESQL_VERSION: 13.1
+  POSTGRESQL_VERSION: 15.2
   POSTGRESQL_DB: mydata
-  POSTGRESQL_USER: postgres
-  POSTGRESQL_PASSWORD: password
-  JAVA_VERSION: 1.15
+  POSTGRESQL_USER: joshdb
+  POSTGRESQL_PASSWORD: 83830381
+  JAVA_VERSION: 1.17
 
 jobs:
   build:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:13.1
+        image: postgres:15.2
         env:
           POSTGRES_DB: ${{ env.POSTGRESQL_DB }}
           POSTGRES_USER: ${{ env.POSTGRESQL_USER }}
