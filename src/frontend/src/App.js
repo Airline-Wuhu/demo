@@ -28,7 +28,7 @@ import {
 } from 'antd';
 import SubMenu from "antd/es/menu/SubMenu";
 import StudentDrawerForm from "./StudentDrawerForm";
-import {waitForElementToBeRemoved} from "@testing-library/react";
+
 import {errorNotificationWithIcon} from "./Notification";
 
 const { Header, Content, Footer, Sider } = Layout;

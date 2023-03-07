@@ -1,5 +1,5 @@
 
-import {Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space, Spin} from 'antd';
+import {Button, Col, Drawer, Form, Input, Row, Select, Spin} from 'antd';
 import {addNewStudent} from "./client";
 import {LoadingOutlined} from "@ant-design/icons";
 import {useState} from "react";
@@ -20,7 +20,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
     };
     const onFinish = values => {
         setSubmitting(true)
-        console.log(JSON.stringify((values, null, 2)));
+        console.log(JSON.stringify(values, null, 2));
         addNewStudent(values)
             .then(() => {
             console.log("student added")
@@ -46,7 +46,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
 
     };
     const onFinishFailed = errorInfo => {
-        alert(JSON.stringify((errorInfo, null, 2)));
+        alert(JSON.stringify(errorInfo, null, 2));
     };
     return (
         <>
@@ -71,7 +71,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
                 <Form layout="vertical"
                         onFinishFailed={onFinishFailed}
                         onFinish={onFinish}
-                        hideRequiredMark>
+                >
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
@@ -143,5 +143,5 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
             </Drawer>
         </>
     );
-};
+}
 export default StudentDrawerForm;
