@@ -31,6 +31,8 @@ jobs:
       - uses: actions/setup-java@v1.4.3
         with:
           java-version: ${{ env.JAVA_VERSION }}
+      - name: Grant execute permission to mvnw script
+        run: chmod +x mvnw
       - name: Maven Clean Package
         run: |
           ./mvnw --no-transfer-progress clean package -P build-frontend
