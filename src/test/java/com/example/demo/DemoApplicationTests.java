@@ -11,7 +11,7 @@ class DemoApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Assertions.fail("error");
+		Assertions.fail("error!");
 	}
 
 }
