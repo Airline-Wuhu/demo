@@ -24,7 +24,9 @@ import {
     Tag,
     Avatar,
     Radio,
-    notification, Popconfirm
+    notification,
+    Popconfirm,
+    Image
 } from 'antd';
 import SubMenu from "antd/es/menu/SubMenu";
 import StudentDrawerForm from "./StudentDrawerForm";
@@ -290,7 +292,12 @@ function App() {
                         textAlign: 'center',
                     }}
                 >
-                    This is a footer :P
+                    This is a footer!
+                    <br/>
+                    <Image
+                        width={35}
+                        src="https://image11.m1905.cn/uploadfile/2016/0205/20160205103239628184.jpg"
+                    />
                 </Footer>
             </Layout>
         </Layout>
