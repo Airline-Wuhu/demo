@@ -35,17 +35,7 @@ import {errorNotificationWithIcon} from "./Notification";
 
 const { Header, Content, Footer, Sider } = Layout;
 
-/*
-function getItem(label, key, icon, children) {
-    return {
-        key,
-        icon,
-        children,
-        label,
-    };
-}
 
- */
 const InitAvatar = ({name}) => {
     let trim = name.trim();
     if (trim.length === 0) {
@@ -131,10 +121,23 @@ function App() {
                         cancelText='No'>
                         <Radio.Button value="small">Delete</Radio.Button>
                     </Popconfirm>
-                    <Radio.Button value="small">Edit</Radio.Button>
+                    <StudentDrawerForm
+                        showDrawer={showDrawer}
+                        setShowDrawer={setShowDrawer}
+                        fetchStudents={fetchStudents}
+                    />
+                    <Popconfirm
+                        placement='topRight'
+                        title={`By committing edit, the system will delete this entry first. Are you sure to edit ${student.name}?`}
+                        onConfirm = {() => {
+                            removeStudent(student.id);
+                            setShowDrawer(!showDrawer);
+                        }}
+                        okText='Yes'
+                        cancelText='No'>
+                        <Radio.Button value="small">Edit</Radio.Button>
+                    </Popconfirm>
                 </Radio.Group>
-
-
         },
     ];
     const fetchStudents = () =>
