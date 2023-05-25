@@ -38,4 +38,28 @@ public class StudentServices {
         }
         studentRepository.deleteById(studentId);
     }
+
+    public void updateStudent(Long studentId, Student student) {
+        if (!studentRepository.existsById(studentId)) throw new BadRequestException("Student with id " + studentId + " does not exist");
+        Student modified = studentRepository.getReferenceById(studentId);
+        boolean change = false;
+        if (!student.getEmail().equals(modified.getEmail())) {
+            if (studentRepository.selectExistsEmail(student.getEmail())) {
+                throw new BadRequestException("this email has been used");
+            }
+            change = true;
+            modified.setEmail(student.getEmail());
+        }
+        if (!student.getName().equals(modified.getName())) {
+            change = true;
+            modified.setName(student.getName());
+        }
+        if (!student.getGender().equals(modified.getGender())) {
+            change = true;
+            modified.setGender(student.getGender());
+        }
+        if (!change) throw new BadRequestException("there is no modification made");
+
+        studentRepository.save(modified);
+    }
 }

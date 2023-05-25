@@ -1,11 +1,9 @@
 package com.example.demo.student;
 
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -22,11 +20,17 @@ public class StudentController {
     public void addStudent(@Valid @RequestBody Student student) {
         studentServices.addStudent(student);
     }
+
     @DeleteMapping(path = "{studentId}")
     public void deleteStudent(
             @PathVariable("studentId") Long studentId) {
         studentServices.deleteStudent(studentId);
     }
 
+    @PutMapping(path = "{studentId}")
+    public void updateStudent(
+            @PathVariable("studentId") Long studentId, @Valid @RequestBody Student student) {
+        studentServices.updateStudent(studentId, student);
+    }
 
 }

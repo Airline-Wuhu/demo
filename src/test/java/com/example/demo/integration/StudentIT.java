@@ -100,4 +100,48 @@ public class StudentIT {
         boolean exist = studentRepository.existsById(id);
         assertThat(exist).isFalse();
     }
+    @Test
+    void updateStudent() throws Exception {
+        String firstName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+
+        String name = String.format("%s %s", firstName, lastName);
+        String email = String.format("%s@demail.com", firstName + lastName);
+
+        Student s = new Student(
+                name, email, Gender.OTHERS);
+        ResultActions resultActions = mockMvc
+                .perform(post("/api/v1/students")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(s)));
+        resultActions.andExpect(status().isOk());
+
+        MvcResult getStudentResult = mockMvc.perform(get("/api/v1/students")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        String contentAsString = getStudentResult.getResponse().getContentAsString();
+        List<Student> students = objectMapper.readValue(
+                contentAsString,
+                new TypeReference<>() {
+                }
+        );
+
+        long id = students.stream().filter(
+                        x -> x.getEmail().equals(s.getEmail()))
+                .map(Student::getId)
+                .findFirst()
+                .orElseThrow(() ->
+                        new IllegalStateException(
+                                "student withemail: " + email + " not found!")
+                );
+        s.setGender(Gender.FEMALE);
+        ResultActions resultActions1 = mockMvc.perform(put("/api/v1/students/" + id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(s)));
+
+        resultActions1.andExpect(status().isOk());
+        students = studentRepository.findAll();
+        assertThat(students).usingRecursiveFieldByFieldElementComparatorIgnoringFields("id").contains(s);
+    }
 }
