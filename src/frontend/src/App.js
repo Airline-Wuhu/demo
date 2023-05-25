@@ -30,6 +30,7 @@ import {
 } from 'antd';
 import SubMenu from "antd/es/menu/SubMenu";
 import StudentDrawerForm from "./StudentDrawerForm";
+import UpdateStudentDrawerForm from "./UpdateStudentDrawerForm";
 
 import {errorNotificationWithIcon} from "./Notification";
 
@@ -80,6 +81,9 @@ function App() {
     const [collapsed, setCollapsed] = useState(false);
     const [fetching, setFetching] = useState(true);
     const [showDrawer, setShowDrawer] = useState(false);
+    // const [updateCollapsed, setUpdateCollapsed] = useState(false);
+    // const [updateFetching, setUpdateFetching] = useState(true);
+    const [showUpdateDrawer, setShowUpdateDrawer] = useState(false);
 
     const columns = fetchStudents => [
         {
@@ -125,18 +129,18 @@ function App() {
                         showDrawer={showDrawer}
                         setShowDrawer={setShowDrawer}
                         fetchStudents={fetchStudents}
+
                     />
-                    <Popconfirm
-                        placement='topRight'
-                        title={`By committing edit, the system will delete this entry first. Are you sure to edit ${student.name}?`}
-                        onConfirm = {() => {
-                            removeStudent(student.id);
-                            setShowDrawer(!showDrawer);
-                        }}
-                        okText='Yes'
-                        cancelText='No'>
-                        <Radio.Button value="small">Edit</Radio.Button>
-                    </Popconfirm>
+                    <UpdateStudentDrawerForm
+                        showUpdateDrawer={showUpdateDrawer}
+                        setShowUpdateDrawer={setShowUpdateDrawer}
+                        fetchStudents={fetchStudents}
+                        studentID={student.id}
+                    />
+
+                    <Radio.Button value="small" onClick={() => {
+                        setShowUpdateDrawer(!showUpdateDrawer);
+                        }}>Edit</Radio.Button>
                 </Radio.Group>
         },
     ];
